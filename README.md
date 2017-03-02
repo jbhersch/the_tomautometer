@@ -14,38 +14,40 @@
 6. Sources
 
 ## Data
-- Scrape http://www.rottentomatoes.com
-- Figure out most commonly used words
-    - word clouds - total, fresh reviews, rotten reviews
+Rotten Tomatoes is a website that rates movies using the Tomatometer.
+
+<img src="images/snatch_screenshot.jpg" width="600" height="400" />
+
+<img src="images/frequency_wordcloud.png" width="600" height="400" />
 
 ## Models
-#### Logistic Regression
-
-#### Naive Bayes
-
-#### Random Forest
-
-#### Support Vector Machine (SVM)
-
-#### Convolutional Neural Network (CNN)
-
-#### Ensemble Model
-
-#### Model Performance
+<img src="images/model_performance_barchart.png" width="600" height="400" />
 
 ## Model Investigation
 #### Vocabulary Sentiment
-- show word clouds
+<img src="images/high_sentiment_wordcloud.png" width="600" height="400" />
 
-#### Corpus Sentiment
+<img src="images/high_sentiment_bigramcloud.png" width="600" height="400" />
+
+<img src="images/high_sentiment_barchart.png" width="600" height="400" />
+
+<img src="images/low_sentiment_wordcloud.png" width="600" height="400" />
+
+<img src="images/low_sentiment_bigramcloud.png" width="600" height="400" />
+
+<img src="images/low_sentiment_barchart.png" width="600" height="400" />
 
 #### Sentiment Density Functions
-- show density function plots
+<img src="images/vocab_sentiment_pdf.png" width="600" height="400" />
+
+<img src="images/corpus_sentiment_pdf.png" width="600" height="400" />
+
+<img src="images/sentiment_pdf.png" width="600" height="400" />
 
 ## Tomatometer Vs. Tomautometer
-- show plot of oscar movies
-- maybe some plots on the error for all movies?
-    - maybe a density function?
+<img src="images/oscar_films_barchart.png" width="600" height="400" />
+
+<img src="images/movie_score_error_pdf.png" width="600" height="400" />
 
 ## Web Application
 - Select a model
