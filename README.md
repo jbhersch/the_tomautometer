@@ -46,7 +46,9 @@ varied from model to model, which is discussed below.
 The <a href="http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html">Random Forest </a>
 model performed best with 40 trees and the
 <a href="http://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html">CountVectorizer</a>
-using individual words alone.  The Train/Test accuracies are listed below.
+using individual words alone.
+
+The python script, <a href="https://github.com/jbhersch/the_tomautometer/blob/master/src/random_forest.py">random_forest.py</a>, was used for training and testing.
 - Train Accuracy: 99.9%
 - Test Accuracy: 72.1%
 
@@ -54,35 +56,74 @@ using individual words alone.  The Train/Test accuracies are listed below.
 The <a href="http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html">SVM</a>
 model performed best with the linear kernal function and count vectorization with individual words alone.
 As seen below, it beat the Random Forest in test accuracy by roughly 4.5%.
+
+The python script, <a href="https://github.com/jbhersch/the_tomautometer/blob/master/src/svm.py">svm.py</a>, was used for training and testing.
 - Train Accuracy: 93.9%
 - Test Accuracy: 76.6%
 
 ##### Naive Bayes
-<a href="http://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.MultinomialNB.html">Naive Bayes</a>
+The <a href="http://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.MultinomialNB.html">Naive Bayes</a>
+model is a multinomial Naive Bayes that uses count vectorization with words and bigrams.  
+
+The python script, <a href="https://github.com/jbhersch/the_tomautometer/blob/master/src/naive_bayes.py">naive_bayes.py</a>, was used for training and testing.
 - Train Accuracy: 97.6%
 - Test Accuracy: 79.0%
 
 ##### Convolutional Neural Network (CNN)
+The basis of the CNN model is an example given on
+<a href="http://machinelearningmastery.com/predict-sentiment-movie-reviews-using-deep-learning/">Machine Learning Mastery</a>
+used for sentiment analysis on the
+<a href="http://ai.stanford.edu/~amaas/papers/wvSent_acl2011.pdf">IMDB Data Set</a>.
+One aspect of using neural networks for sentiment analysis is that the language vectorization process is quite different from
+the other models used.  In all the other models the scikit-learn CountVectorizer is used with varying hyper parameters.
+The CNN uses popularity vectorization, where the vocabulary elements in a review are replaced with high dimensional vectors containing
+integers for each element that correspond to its popularity.  In other words, the most frequently
+used vocabulary element has a popularity value of one, and so on.  I found that the CNN worked most effectively when generating popularity
+vectors from words and bigrams.  Similar to the other models, the CountVectorizer was used to determine the vocabulary list from
+the corpus of reviews.  Once the Vectorizer was fit to the corpus, each review in the corpus can be transformed into a count vector,
+and then inverse transformed into a list of vocabulary elements. From there, I created a dictionary with vocabulary elements as keys
+and their respective popularity as values.  The lists of vocabulary elements corresponding to the reviews were then replaced with
+lists of popularity integers obtained from the popularity dictionary.  This process is discussed in more detail in the python script,
+<a href="https://github.com/jbhersch/the_tomautometer/blob/master/src/corpus_popularity.py">corpus_popularity.py</a>.
+
+Now that the popularity vectorization process has been discussed, we can get into the structure of the CNN.
+On the most basic level, the CNN is a
+<a href="https://keras.io/models/sequential/">Keras Sequential model</a>.
+The network is constructed with five layers:
+- Embedding Layer
+- Convolution Layer
+- Pooling Layer
+- Dense Hidden Layer
+- Output Layer
+
+The python script, <a href="https://github.com/jbhersch/the_tomautometer/blob/master/src/cnn.py">cnn.py</a>,
+was used for training and testing.
 - Train Accuracy: 90.3%
 - Test Accuracy: 79.8%
 
 ##### Logistic Regression
+Surprisingly, the
 <a href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html">Logistic Regression</a>
+model outperformed all of the other individual models.  Similar to Naive Bayes and CNN, the Logistic Regression model uses
+count vectorization with words and bigrams.
+
+The python script, <a href="https://github.com/jbhersch/the_tomautometer/blob/master/src/logistic_regression.py">logistic_regression.py</a>, was used for training and testing.
 - Train Accuracy: 99.9%
 - Test Accuracy: 80.0%
 
 ##### Ensemble Model
+The final model selected is an ensemble model composed of the Logistic Regression model, the Naive Bayes model, and the CNN model.
+The predict function of the ensemble model takes an average of the predicted values of its three component models.
+While the increase in test accuracy of the ensemble model is not dramatic, it does outperform all the other models
+I developed.
+
+The python script, <a href="https://github.com/jbhersch/the_tomautometer/blob/master/src/ensemble.py">ensemble.py</a>, was used for training and testing.
 - Train Accuracy: 98.1%
 - Test Accuracy: 80.7%
 
 #### Performance
 The chart below displays the training and test accuracy for all the models discussed.
-From left to right, the models are ordered by increasing test accuracy.  As shown,
-the Random Forest and SVM were the two weakest models in terms of accuracy, both
-of which have test accuracies in the low to mid 70th percentile.  Naive Bayes and
-CNN have test accuracies just under 80% and Logistic Regression is just above 80%.
-Finally, the most accurate model, the ensemble model, is slightly better than
-Logistic Regression with a test accuracy just under 81%.  
+From left to right, the models are ordered by increasing test accuracy.  
 <div style="text-align:center"><img src="images/model_performance_barchart.png" width="600" height="400" /></div><br>
 
 ## Model Investigation
