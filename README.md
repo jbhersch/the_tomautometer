@@ -30,13 +30,59 @@ bottom two have green tomato icons, indicating they are negative reviews.  The s
 of the Rotten Tomatoes review pages allowed for these review introductions to be
 scraped and used in the language corpus.  The tomato icons next to each review
 allowed for them to very easily labeled good or bad.  The python script,
-src/rt_scrape.py contains the web scraping code.  
+<a href="https://github.com/jbhersch/the_tomautometer/blob/master/src/rt_scrape.py">rt_scrape.py</a> contains the web scraping code.  
 
 <div style="text-align:center"><img src="images/snatch_screenshot.jpg" width="600" height="400" /></div><br>
 
 ## Model Development
+Before developing the models the corpus was split into a training set with 80% of the data, and a testing
+set with 20% of the data.  My initial plan going into this project was to use an artificial neural network
+for the final sentiment model.  While I did create one, it was ultimately not the highest performing model.
+Having said that, I spent much more time working on the neural network than the others, so it will be discussed
+in more detail.  Another key component in the model development process was language vectorization.  The type of vectorization
+varied from model to model, which is discussed below.
 #### Models
+##### Random Forest
+The <a href="http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html">Random Forest </a>
+model performed best with 40 trees and the
+<a href="http://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html">CountVectorizer</a>
+using individual words alone.  The Train/Test accuracies are listed below.
+- Train Accuracy: 99.9%
+- Test Accuracy: 72.1%
+
+##### Support Vector Machine (SVM)
+The <a href="http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html">SVM</a>
+model performed best with the linear kernal function and count vectorization with individual words alone.
+As seen below, it beat the Random Forest in test accuracy by roughly 4.5%.
+- Train Accuracy: 93.9%
+- Test Accuracy: 76.6%
+
+##### Naive Bayes
+<a href="http://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.MultinomialNB.html">Naive Bayes</a>
+- Train Accuracy: 97.6%
+- Test Accuracy: 79.0%
+
+##### Convolutional Neural Network (CNN)
+- Train Accuracy: 90.3%
+- Test Accuracy: 79.8%
+
+##### Logistic Regression
+<a href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html">Logistic Regression</a>
+- Train Accuracy: 99.9%
+- Test Accuracy: 80.0%
+
+##### Ensemble Model
+- Train Accuracy: 98.1%
+- Test Accuracy: 80.7%
+
 #### Performance
+The chart below displays the training and test accuracy for all the models discussed.
+From left to right, the models are ordered by increasing test accuracy.  As shown,
+the Random Forest and SVM were the two weakest models in terms of accuracy, both
+of which have test accuracies in the low to mid 70th percentile.  Naive Bayes and
+CNN have test accuracies just under 80% and Logistic Regression is just above 80%.
+Finally, the most accurate model, the ensemble model, is slightly better than
+Logistic Regression with a test accuracy just under 81%.  
 <div style="text-align:center"><img src="images/model_performance_barchart.png" width="600" height="400" /></div><br>
 
 ## Model Investigation
