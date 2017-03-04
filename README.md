@@ -19,7 +19,6 @@ check out the <a href="http://ec2-54-144-4-33.compute-1.amazonaws.com:8105/">web
 2. Model Development
 3. Model Investigation
 4. Tomatometer Vs. Tomautomer
-5. Web Application
 
 ## Obtaining the Data
 The data used for this project consists of movie review introductions obtained
@@ -29,13 +28,13 @@ The top three have red tomato icons, indicating they are positive reviews, and t
 bottom two have green tomato icons, indicating they are negative reviews.  The structure
 of the Rotten Tomatoes review pages allowed for these review introductions to be
 scraped and used in the language corpus.  The tomato icons next to each review
-allowed for them to very easily labeled good or bad.  The python script,
-<a href="https://github.com/jbhersch/the_tomautometer/blob/master/src/rt_scrape.py">rt_scrape.py</a> contains the web scraping code.  
+allowed for them to be very easily labeled good or bad.  The python script,
+<a href="https://github.com/jbhersch/the_tomautometer/blob/master/src/rt_scrape.py">rt_scrape.py</a>, contains the web scraping code.  
 
 <div style="text-align:center"><img src="images/snatch_screenshot.jpg" width="600" height="400" /></div><br>
 
 ## Model Development
-Before developing the models the corpus was split into a training set with 80% of the data, and a testing
+Before developing the models, the corpus was split into a training set with 80% of the data, and a testing
 set with 20% of the data.  My initial plan going into this project was to use an artificial neural network
 for the final sentiment model.  While I did create one, it was ultimately not the highest performing model.
 Having said that, I spent much more time working on the neural network than the others, so it will be discussed
@@ -127,6 +126,21 @@ From left to right, the models are ordered by increasing test accuracy.
 <div style="text-align:center"><img src="images/model_performance_barchart.png" width="600" height="400" /></div><br>
 
 ## Model Investigation
+#### Vocabulary Frequency
+Any good Natural Language Processing project should have at least one word cloud
+for the vocabulary frequency.  This project is no exception.  It is worth noting
+that the word frequencies used in this word cloud were obtained by omitting English
+stop words and bigrams in the vectorization process.  The reason I mention this
+is because the models performed better without stop word omissions, and as such,
+no stop words were omitted in the vectorization used in the models.
+
+<div style="text-align:center"><img src="images/frequency_wordcloud.png" width="600" height="400" /></div><br>
+
+The word cloud above shows vocabulary that one might expect for a corpus of movie
+reviews.  Words like 'film', 'movie', 'review', and 'director' appear.  In the
+next section, I discuss the results of my investigation into the relationship between
+vocabulary frequency and predicted sentiment.
+
 #### Frequency - Sentiment Correlation?
 One of the first questions I asked once the final model had been trained is
 whether or not there is a correlation between vocabulary frequency and
@@ -138,35 +152,95 @@ no correlation exists.
 <div style="text-align:center"><img src="images/vocab_sentiment_regression.png" width="600" height="400" /></div><br>
 
 #### Vocabulary Sentiment
-<div style="text-align:center"><img src="images/frequency_wordcloud.png" width="600" height="400" /></div><br>
+Up to this point, the manner in which vocabulary sentiment is actually quantified has
+not been discussed.  Since the movie reviews have binary data labels, the sentiment
+prediction model is a classifier rather than a regressor, which would be used on
+continuous data labels.  A property of classifiers is that they can predict the probability
+that the input data belongs to any of the labeled classes.  For the case of binary data,
+the model predicts the probability that an input data point is equal to zero (negative review)
+or equal to one (positive review).  The predicted probability of a value of one can be interpreted
+as a quantification of sentiment.  The higher the probability that an input data point has
+a value of one, the more positive the sentiment for that review is.  For clarity, the predicted
+probability of a value of one is mapped to the range of -1 to 1, so that data with positive
+sentiment is represented by a positive number and data with negative sentiment is represented
+by a negative number.
 
+##### High Sentiment Words
+At this point, you're probably bored with the technical jargon, and you're wondering what
+the highest sentiment words in the corpus vocabulary are.  The word cloud below illustrates
+exactly that.  The information necessary to create this word cloud was obtained by
+predicting the sentiment on all the individual words in the vocabulary.  Intuitively, this
+collection of words make sense.  One would expect words like 'gripping', 'entertaining',
+and 'beautifully' to be associated with positive sentiment.
 <div style="text-align:center"><img src="images/high_sentiment_wordcloud.png" width="600" height="400" /></div><br>
 
+##### High Sentiment Bigrams
+Now you're probably wondering what the highest sentiment bigrams in the corpus vocabulary are.
+I've got you covered.  This next word cloud is of the highest sentiment bigrams in the vocabulary.
+Notice that at least one of the high sentiment words from the previous word cloud appears in almost
+every single high sentiment bigram.
 <div style="text-align:center"><img src="images/high_sentiment_bigramcloud.png" width="600" height="400" /></div><br>
 
+##### High Sentiment Vocabulary
+The next question you're probably asking is whether individual words or bigrams induce higher sentiment.
+As it turns out, high sentiment bigrams yield significantly higher sentiment than high sentiment words.
+The bar chart below illustrates this.  The green bars represent the top five highest sentiment bigrams,
+and the blue bars represent the top five highest sentiment words.  Notice that every single one of the
+top five bigrams contains at least one of the top five words.
 <div style="text-align:center"><img src="images/high_sentiment_barchart.png" width="600" height="400" /></div><br>
 
+##### Low Sentiment Words
+Now that we've examined high sentiment vocabulary, let's take a look at the low sentiment vocabulary, starting
+with low sentiment words.  Once again, the words in this collection are fitting.  'Bland', 'tedious', and 'pointless'
+are all words that are associated with negative sentiment.
 <div style="text-align:center"><img src="images/low_sentiment_wordcloud.png" width="600" height="400" /></div><br>
 
+##### Low Sentiment Bigrams
+Next we have low sentiment bigrams.  Notice that the behavior here is very similar to that of the high sentiment
+bigrams in the sense that almost all of the low sentiment bigrams shown below contain at least one of the low
+sentiment words from the previous word cloud.
 <div style="text-align:center"><img src="images/low_sentiment_bigramcloud.png" width="600" height="400" /></div><br>
 
+##### Low Sentiment Vocabulary
+The bar chart below compares the five bigrams with the lowest sentiment to the five words with the lowest sentiment,
+bigrams being labeled with red bars, and words being labeled with yellow bars.  Similar to the high sentiment
+vocabulary, low sentiment bigrams are significantly more polarizing than low sentiment words.  Also similar to
+the high sentiment vocabulary, all five low sentiment bigrams contain at least one of the five low sentiment words.
 <div style="text-align:center"><img src="images/low_sentiment_barchart.png" width="600" height="400" /></div><br>
 
 #### Sentiment Density Functions
+##### Vocabulary Sentiment Density Function
+As discussed in the previous section, the sentiment for all the words in the vocabulary was
+calculated using the ensemble model.  I thought it would be interesting to examine what the
+probability distribution of the vocabulary sentiment would look like, and those results are
+displayed in the chart below.  A histogram for vocabulary sentiment is labeled by the blue
+bars, the Kernal Density Estimator (KDE) is labeled by the red curve, and a normal distribution
+with the mean vocabulary sentiment and standard deviation of the vocabulary sentiment is
+labeled with the green curve.  Notice that the KDE and histogram both favor positive sentiment.
+Also notice that the KDE is approximately normal away from the mean, but some noise exists
+near the mean which causes it to deviate from the normal distribution.
 <div style="text-align:center"><img src="images/vocab_sentiment_pdf.png" width="600" height="400" /></div><br>
 
+##### Corpus Sentiment Density Function
+The plot below shows a histogram and KDE for the sentiment of all the reviews in the corpus.
+Clearly, the reviews have much more polarizing sentiment than the vocabulary.  Considering
+the fact that the model was trained on binary data, this makes sense.  Notice that the
+review sentiment favors positive sentiment.  This is most likely due to the fact that the
+training data set was imbalanced.  Roughly 58% of the reviews were positive, and that imbalance
+is expressed in the density function.
 <div style="text-align:center"><img src="images/corpus_sentiment_pdf.png" width="600" height="400" /></div><br>
 
+##### Sentiment Density Functions
+This last density function plot shows both the vocabulary sentiment KDE and the corpus sentiment KDE.
+In both cases, positive sentiment is favored.  For the case of the corpus sentiment, the reason
+for this is that the corpus was imbalanced in favor of positive reviews.  My suspicion is that the noise and
+positive sentiment favoritism in the vocabulary is a manifestation of the imbalance in the corpus sentiment.
 <div style="text-align:center"><img src="images/sentiment_pdf.png" width="600" height="400" /></div><br>
 
-## Tomatometer Vs. Tomautometer
+## Tomato, Tomauto
+Now we're back to where it all started.  How does the Tomautometer stack up against the Tomatometer.
+The plot below compares the two for the 2017 Best Picture Oscar Nominees.  
 <div style="text-align:center"><img src="images/oscar_films_barchart.png" width="600" height="400" /></div><br>
 
+Error distribution for all movies in data set.
 <div style="text-align:center"><img src="images/movie_score_error_pdf.png" width="600" height="400" /></div><br>
-
-## Web Application
-- Select a model
-- Take in text from a review and score it
-- Take in url for a movie on RT, score it, compare it to true score
-
-## Sources
