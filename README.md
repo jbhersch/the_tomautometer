@@ -238,7 +238,7 @@ positive sentiment favoritism in the vocabulary is a manifestation of the imbala
 <div style="text-align:center"><img src="images/sentiment_pdf.png" width="600" height="400" /></div><br>
 
 ## Tomato, Tomauto
-Now we're back to where it all started.  How does the Tomautometer stack up against the Tomatometer.
+Now we're back to where it all started.  How does the Tomautometer stack up against the Tomatometer?
 The plot below compares the two for the 2017 Best Picture Oscar Nominees.  
 <div style="text-align:center"><img src="images/oscar_films_barchart.png" width="600" height="400" /></div><br>
 
