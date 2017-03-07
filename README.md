@@ -251,4 +251,16 @@ there were a small number of cases where the model score was significantly diffe
 However, the Kernal Density Estimator, shown in red, compared to the normal distribution, shown in green,
 indicate that eliminating the outlying error values yields an error distribution that is approximately normal with
 a smaller standard deviation than 7.1.
+
 <div style="text-align:center"><img src="images/movie_score_error_pdf.png" width="600" height="400" /></div><br>
+
+## Technology Stack
+<img src="images/thumbnails/python_logo.png" width="300" height="200" />
+<img src="images/thumbnails/pandas_logo.png" width="400" height="200" />
+<img src="images/thumbnails/numpy_logo.jpg" width="300" height="200" />
+
+<img src="images/thumbnails/scikit-learn-logo.png" width="300" height="200" />
+<img src="images/thumbnails/matplotlib_logo.png" width="400" height="200" />
+<img src="images/thumbnails/keras_logo.jpg" width="300" height="200" />
+
+<img src="images/thumbnails/beautiful_soup_logo.png" width="300" height="200" />
