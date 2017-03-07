@@ -168,10 +168,10 @@ by a negative number.
 ##### High Sentiment Words
 At this point, you're probably bored with the technical jargon, and you're wondering what
 the highest sentiment words in the corpus vocabulary are.  The word cloud below illustrates
-exactly that.  The information necessary to create this word cloud was obtained by
-predicting the sentiment on all the individual words in the vocabulary.  Intuitively, this
-collection of words make sense.  One would expect words like 'gripping', 'entertaining',
-and 'beautifully' to be associated with positive sentiment.
+exactly that.  The information necessary to create the next four word clouds was obtained by
+predicting the sentiment on the entire vocabulary set, and then extracting the most polarizing elements.  
+Intuitively, this collection of words make sense.  One would expect words like 'gripping',
+'entertaining', and 'beautifully' to be associated with positive sentiment.
 <div style="text-align:center"><img src="images/high_sentiment_wordcloud.png" width="600" height="400" /></div><br>
 
 ##### High Sentiment Bigrams
@@ -239,8 +239,16 @@ positive sentiment favoritism in the vocabulary is a manifestation of the imbala
 
 ## Tomato, Tomauto
 Now we're back to where it all started.  How does the Tomautometer stack up against the Tomatometer?
-The plot below compares the two for the 2017 Best Picture Oscar Nominees.  
+The plot below compares the two for the 2017 Best Picture Oscar Nominees.  As you can see, it did fairly well,
+but the model tended to under-predicted, with a mean error of -3.89.
 <div style="text-align:center"><img src="images/oscar_films_barchart.png" width="600" height="400" /></div><br>
 
-Error distribution for all movies in data set.
+This next plot shows the error distribution for all the movies in the data set.  It should be stated that this chart
+contains both training and testing data, so it does not give a pure measurement of test error.  Having said that,
+it is interesting to notice that similar to the case of the Best Picture Nominees, the model tends to under-predict
+the Rotten Tomatoes score with a mean error of -1.42.  The standard error deviation is calculated to be 7.1 because
+there were a small number of cases where the model score was significantly different from the Rotten Tomatoes score.
+However, the Kernal Density Estimator, shown in red, compared to the normal distribution, shown in green,
+indicate that eliminating the outlying error values yields an error distribution that is approximately normal with
+a smaller standard deviation than 7.1.
 <div style="text-align:center"><img src="images/movie_score_error_pdf.png" width="600" height="400" /></div><br>
