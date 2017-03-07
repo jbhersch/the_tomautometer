@@ -5,6 +5,15 @@ from cnn import load_cnn, cap_top_words, popularity_vector
 from keras.preprocessing import sequence
 from tomato import load_train_test_split, Tomato
 
+'''
+ensemble.py
+This module has three functions
+    - create a class for the ensemble model - Ensemble
+    - loads and assembles the necessary data into the Ensemble object
+        load_ensemble_model()
+    - training and testing the ensemble model in the main branch
+'''
+
 class Ensemble(object):
     '''
     The Ensemble class is an ensemble of three different models - Logistic
@@ -29,6 +38,15 @@ class Ensemble(object):
         - cnn_pad_words: Number of words to pad each popularity vector (int)
     '''
     def __init__(self, logistic_regression, naive_bayes, cnn):
+        '''
+        INPUT:
+            - logistic_regression: tuple containing the Logistic Regression
+                model and vectorizer
+            - naive_bayes: tuple contaiing the Naive Bayes model and vectorizer
+            - cnn: tuple containg the CNN model, vectorizer, popularity
+                dictionary, word cap, and number of pad words
+        OUTPUT: None
+        '''
         # Logistic Regression
         self.logistic_regression_model = logistic_regression[0]
         self.logistic_regression_vector = logistic_regression[1]
