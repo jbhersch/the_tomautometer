@@ -165,7 +165,7 @@ probability of a value of one is mapped to the range of -1 to 1, so that data wi
 sentiment is represented by a positive number and data with negative sentiment is represented
 by a negative number.
 
-##### High Sentiment Words
+##### Positive Sentiment Words
 At this point, you're probably bored with the technical jargon, and you're wondering what
 the highest sentiment words in the corpus vocabulary are.  The word cloud below illustrates
 exactly that.  The information necessary to create the next four word clouds was obtained by
@@ -174,14 +174,14 @@ Intuitively, this collection of words make sense.  One would expect words like '
 'entertaining', and 'beautifully' to be associated with positive sentiment.
 <div style="text-align:center"><img src="images/high_sentiment_wordcloud.png" width="600" height="400" /></div><br>
 
-##### High Sentiment Bigrams
+##### Positive Sentiment Bigrams
 Now you're probably wondering what the highest sentiment bigrams in the corpus vocabulary are.
 I've got you covered.  This next word cloud is of the highest sentiment bigrams in the vocabulary.
 Notice that at least one of the high sentiment words from the previous word cloud appears in almost
 every single high sentiment bigram.
 <div style="text-align:center"><img src="images/high_sentiment_bigramcloud.png" width="600" height="400" /></div><br>
 
-##### High Sentiment Vocabulary
+##### Positive Sentiment Vocabulary
 The next question you're probably asking is whether individual words or bigrams induce higher sentiment.
 As it turns out, high sentiment bigrams yield significantly higher sentiment than high sentiment words.
 The bar chart below illustrates this.  The green bars represent the top five highest sentiment bigrams,
@@ -189,19 +189,19 @@ and the blue bars represent the top five highest sentiment words.  Notice that e
 top five bigrams contains at least one of the top five words.
 <div style="text-align:center"><img src="images/high_sentiment_barchart.png" width="600" height="400" /></div><br>
 
-##### Low Sentiment Words
+##### Negative Sentiment Words
 Now that we've examined high sentiment vocabulary, let's take a look at the low sentiment vocabulary, starting
 with low sentiment words.  Once again, the words in this collection are fitting.  'Bland', 'tedious', and 'pointless'
 are all words that are associated with negative sentiment.
 <div style="text-align:center"><img src="images/low_sentiment_wordcloud.png" width="600" height="400" /></div><br>
 
-##### Low Sentiment Bigrams
+##### Negative Sentiment Bigrams
 Next we have low sentiment bigrams.  Notice that the behavior here is very similar to that of the high sentiment
 bigrams in the sense that almost all of the low sentiment bigrams shown below contain at least one of the low
 sentiment words from the previous word cloud.
 <div style="text-align:center"><img src="images/low_sentiment_bigramcloud.png" width="600" height="400" /></div><br>
 
-##### Low Sentiment Vocabulary
+##### Negative Sentiment Vocabulary
 The bar chart below compares the five bigrams with the lowest sentiment to the five words with the lowest sentiment,
 bigrams being labeled with red bars, and words being labeled with yellow bars.  Similar to the high sentiment
 vocabulary, low sentiment bigrams are significantly more polarizing than low sentiment words.  Also similar to
