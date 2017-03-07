@@ -26,9 +26,13 @@ if __name__ == '__main__':
     for title in titles:
         n += 1
         try:
+            # scrape each title and put the Tomato objects in the tomatoes dict
             tomatoes[title] = scrape.scrape_movie(title)
+            # add the reviews for title to the list of reviews
             corpus.extend(tomatoes[title].reviews)
+            # add the labels for title to the list of labels
             labels.extend(tomatoes[title].labels)
         except:
+            # catch any errors and put them into the errors dict
             errors[title] = sys.exc_info()[0]
         print n
