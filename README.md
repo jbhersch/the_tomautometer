@@ -261,7 +261,7 @@ a smaller standard deviation than 7.1.
 <img src="images/thumbnails/numpy_logo.jpg" width="300" height="200" />
 <img src="images/thumbnails/scikit-learn-logo.png" width="300" height="200" />
 
-<img src="images/thumbnails/matplotlib_logo.png" width="400" height="200" />
+<img src="images/thumbnails/matplotlib_logo.png" width="300" height="200" />
 <img src="images/thumbnails/keras_logo.jpg" width="300" height="200" />
 
 <img src="images/thumbnails/beautiful_soup_logo.png" width="300" height="200" />

@@ -91,23 +91,32 @@ if __name__ == '__main__':
     # fix random seed for reproducibility
     seed = 7
     np.random.seed(seed)
+
+    # import the training and testing data
     (X_train, X_test, y_train, y_test) = load_train_test_split()
     with open("../data/corpus_pop_bigrams.pkl") as f:
         vector, pop_dict, pop_list = pickle.load(f)
-    sample_size = 10000
+
+    # vectorize the training and testing reviews
     X_train_vectors = popularity_vector(X_train, vector, pop_dict)
     X_test_vectors = popularity_vector(X_test, vector, pop_dict)
 
+    # set word_cap and pad_words
     word_cap = 200000
     pad_words = max([len(x) for x in X_train_vectors + X_test_vectors])
 
+    # implement the word cap in the review vectors
     X_train_vectors = cap_top_words(X_train_vectors, word_cap)
     X_test_vectors = cap_top_words(X_test_vectors, word_cap)
 
+    # pad the review vectors
     X_train_vectors = sequence.pad_sequences(np.array(X_train_vectors), maxlen=pad_words)
     X_test_vectors = sequence.pad_sequences(np.array(X_test_vectors), maxlen=pad_words)
+
+    # set the data label lists to numpy arrays
     y_train, y_test = np.array(y_train), np.array(y_test)
 
+    # generate the model
     model = Sequential()
     model.add(Embedding(word_cap, 32, input_length=pad_words))
     model.add(Convolution1D(nb_filter=32, filter_length=3, border_mode='same', activation='softplus'))
@@ -115,10 +124,14 @@ if __name__ == '__main__':
     model.add(Flatten())
     model.add(Dense(250, activation='softplus'))
     model.add(Dense(1, activation='sigmoid'))
+
+    # compile the model
     model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
 
+    # fit the model to the training set
     model.fit(X_train_vectors, y_train, validation_data=(X_test_vectors, y_test), nb_epoch=2, batch_size=128, verbose=1)
 
+    # calculate the accuracy
     scores = model.evaluate(X_test_vectors, y_test, verbose=0)
     print("Accuracy: %.2f%%" % (scores[1]*100))
 
