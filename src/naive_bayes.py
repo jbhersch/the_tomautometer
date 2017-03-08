@@ -25,12 +25,16 @@ def load_naive_bayes(pickle_file = "../models/naive_bayes.pkl"):
     return (naive_bayes_model, naive_bayes_vector)
 
 if __name__ == '__main__':
+    # import train/test data
     (X_train, X_test, y_train, y_test) = load_train_test_split()
+    # instantiate the vectorizer
     vector = CountVectorizer(ngram_range=(1,2))
+    # vectorize reviews
     X_train_vectors = vector.fit_transform(X_train)
     X_test_vectors = vector.transform(X_test)
+    # fit the model to the training data
     model = MultinomialNB().fit(X_train_vectors, y_train)
-
+    # output results
     print "Train Accuracy:", model.score(X_train_vectors, y_train)
     print "Test Accuracy:", model.score(X_test_vectors, y_test)
     # Train Accuracy: 0.976347819226
