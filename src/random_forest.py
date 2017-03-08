@@ -25,15 +25,20 @@ def load_random_forest(pickle_file = "../models/random_forest.pkl"):
     return (random_forest_model, random_forest_vector)
 
 if __name__ == '__main__':
+    # import training/testing data
     (X_train, X_test, y_train, y_test) = load_train_test_split()
 
+    # instantiate vectorizier
     vector = CountVectorizer(ngram_range=(1,1))
+    # vectorize training and testing reviews
     X_train_vectors = vector.fit_transform(X_train)
     X_test_vectors = vector.transform(X_test)
 
+    # fit model to training data
     model = RandomForestClassifier(n_estimators=40)
     model.fit(X_train_vectors, y_train)
 
+    # output results
     print "Train Accuracy:", model.score(X_train_vectors, y_train)
     print "Test Accuracy:", model.score(X_test_vectors, y_test)
 
