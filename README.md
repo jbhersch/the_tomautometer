@@ -244,7 +244,7 @@ positive sentiment favoritism in the vocabulary is a manifestation of the imbala
 ## Tomato, Tomauto
 Now we're back to where it all started.  How does the Tomautometer stack up against the Tomatometer?
 The plot below compares the two for the 2017 Best Picture Oscar Nominees.  As you can see, it did fairly well,
-but the model tended to under-predicted, with a mean error of -3.89.
+but the model tended to under-predict, with a mean error of -3.89.
 <div style="text-align:center"><img src="images/oscar_films_barchart.png" width="600" height="400" /></div><br>
 
 This next plot shows the error distribution for all the movies in the data set.  It should be stated that this chart
