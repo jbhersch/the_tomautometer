@@ -26,12 +26,16 @@ def load_svm(pickle_file = "../models/svm.pkl"):
     return (svm_model, svm_vector)
 
 if __name__ == '__main__':
+    # import training/testing data
     (X_train, X_test, y_train, y_test) = load_train_test_split()
+    # instantiate vectorizer
     vector = CountVectorizer()
+    # vectorize training/testing reviews
     X_train_vectors = vector.fit_transform(X_train)
     X_test_vectors = vector.transform(X_test)
+    # fit the model
     model = SVC(kernel="linear").fit(X_train_vectors, y_train)
-
+    # output results
     print "Train Accuracy:", model.score(X_train_vectors, y_train)
     print "Test Accuracy:", model.score(X_test_vectors, y_test)
 
