@@ -95,6 +95,10 @@ The network is constructed with five layers:
 - Dense Hidden Layer
 - Output Layer
 
+The key component of this neural network is the embedding layer, which are commonly used in language processing neural networks.
+The embedding layer maps words to a high dimensional vector space where word similarity is expressed as closeness in the vector
+space.  
+
 The python script, <a href="https://github.com/jbhersch/the_tomautometer/blob/master/src/cnn.py">cnn.py</a>,
 was used for training and testing.
 - Train Accuracy: 90.3%
